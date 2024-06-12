@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.FlightDiscussMapper">
+
+
+    <select id="getDiscussByDateOrUser" resultType="com.sky.vo.FlightDiscussVO">
+        select * from discuss
+        <where>
+            <if test="time != null">
+                and time = #{time}
+            </if>
+            <if test="userName != null">
+                and user_name = #{userName}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+</mapper>

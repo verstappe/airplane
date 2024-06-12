@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.UserDiscussMapper">
+
+
+    <insert id="addDiscuss">
+        insert into discuss (time,user_name,message_content,user_id,flight_number)
+        values (#{time}, #{userName}, #{messageContent},#{userId},#{flightNumber})
+    </insert>
+    <update id="updateDiscuss">
+        update discuss
+        <set>
+            <if test="messageContent != null">message_content = #{messageContent},</if>
+            <if test="time != null">time = #{time}</if>
+
+        </set>
+        where user_name = #{userName} and flight_number = #{flightNumber}
+    </update>
+    <update id="updateDiscussById">
+        update discuss
+        <set>
+            <if test="messageContent != null">message_content = #{messageContent},</if>
+            <if test="time != null">time = #{time}</if>
+
+        </set>
+        where user_name = #{userName} and flight_number = #{flightNumber} and id = #{id}
+    </update>
+</mapper>
