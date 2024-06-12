@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.FlightLuggageMapper">
+
+        <insert id="makeLuggage">
+                insert into luggage (statue,location,flight_id,order_id)
+                values (#{statue}, #{location}, #{flightId},#{orderId})
+
+        </insert>
+        <update id="updateLuggage">
+            update luggage
+            <set>
+                <if test="statue != null">statue = #{statue},</if>
+                <if test="location != null">location = #{location}</if>
+            </set>
+            where luggage_id = #{luggageId}
+        </update>
+
+
+        <select id="showLuggage" resultType="com.sky.vo.LuggageVO">
+            select * from luggage
+            <where>
+
+                <if test="luggageId != null">
+                      and luggage_id = #{luggageId}
+                </if>
+                <if test="flightId != null">
+                    and flight_id = #{flightId}
+                </if>
+                <if test="touristId != null">
+                    and tourist_id = #{touristId}
+                </if>
+
+            </where>
+            order by tourist_id desc
+        </select>
+
+
+</mapper>
