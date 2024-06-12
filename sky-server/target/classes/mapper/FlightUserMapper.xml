@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.FlightUserMapper">
+    <select id="pageQuery" resultType="com.sky.entity.FlightUser">
+        select * from user
+        <where>
+            <if test="realName != null ">
+                and real_name concat('%',#{realName},'%')
+            </if>
+        </where>
+        order by user_id desc
+    </select>
+
+    <update id="update" parameterType="FlightUser">
+        update user
+        <set>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="userPwd != null">user_pwd = #{userPwd},</if>
+            <if test="realName != null">real_name = #{realName},</if>
+            <if test="userPhone != null">user_phone = #{userPhone},</if>
+            <if test="userSex != null">user_sex = #{userSex},</if>
+            <if test="userIdentity != null">user_identity = #{userIdentity},</if>
+            <if test="userStatus != null">user_status = #{userStatus},</if>
+        </set>
+        where user_id = #{userId}
+    </update>
+</mapper>
