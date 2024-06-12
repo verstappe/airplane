@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.FlightManageMapper">
+
+
+    <insert id="addFlight">
+        insert into flight (flight_id, flight_number, flight_start_place,flight_end_place, flight_start_airport, flight_end_airport, flight_start_time, flight_end_time, flight_high_price,
+                          flight_high_number, flight_middle_price,flight_middle_number,flight_base_price,flight_base_number)
+        values (#{flightId}, #{flightNumber}, #{flightStartPlace},#{flightEndPlace}, #{flightStartAirport}, #{flightEndAirport}, #{flightStartTime}, #{flightEndTime}, #{flightHighPrice},
+            #{flightHighNumber}, #{flightMiddlePrice},#{flightMiddleNumber},#{flightBasePrice},#{flightBaseNumber})
+    </insert>
+    <update id="updateFlight" parameterType="Flight">
+
+            update flight
+            <set>
+                <if test="flightNumber != null">flight_number = #{flightNumber},</if>
+                <if test="flightStartPlace != null">flight_start_place = #{flightStartPlace},</if>
+                <if test="flightEndPlace != null">flight_end_place = #{flightEndPlace},</if>
+                <if test="flightStartAirport != null">flight_start_airport = #{flightStartAirport},</if>
+                <if test="flightEndAirport != null">flight_end_airport = #{flightEndAirport},</if>
+                <if test="flightStartTime != null">flight_start_time = #{flightStartTime},</if>
+                <if test="flightEndTime != null">flight_end_time = #{flightEndTime},</if>
+                <if test="flightHighPrice != null">flight_high_price = #{flightHighPrice},</if>
+                <if test="flightHighNumber != null">flight_high_number = #{flightHighNumber},</if>
+                <if test="flightMiddlePrice != null">flight_middle_price = #{flightMiddlePrice},</if>
+                <if test="flightMiddleNumber != null">flight_middle_number = #{flightMiddleNumber},</if>
+                <if test="flightBasePrice != null">flight_base_price = #{flightBasePrice},</if>
+                <if test="flightBaseNumber != null">flight_base_number = #{flightBaseNumber},</if>
+            </set>
+            where flight_id = #{flightId}
+
+    </update>
+    <update id="updateFlightPrice">
+        update flight
+        <set>
+
+            <if test="flightHighPrice != null">flight_high_price = #{flightHighPrice},</if>
+
+            <if test="flightMiddlePrice != null">flight_middle_price = #{flightMiddlePrice},</if>
+
+            <if test="flightBasePrice != null">flight_base_price = #{flightBasePrice},</if>
+
+        </set>
+        where flight_id = #{flightId} and flight_number = #{flightNumber}
+    </update>
+    <update id="updateFlightStatusNumber">
+        update flight
+        <set>
+
+            <if test="flightHighNumber != null">flight_high_number = #{flightHighNumber},</if>
+
+            <if test="flightMiddleNumber != null">flight_middle_number = #{flightMiddleNumber},</if>
+
+            <if test="flightBaseNumber != null">flight_base_number = #{flightBaseNumber},</if>
+        </set>
+        where flight_id = #{flightId} and flight_number = #{flightNumber}
+    </update>
+    <update id="updateFlightStartTime">
+        update flight
+        <set>
+
+            <if test="flightStartTime != null">flight_start_time = #{flightStartTime},</if>
+            <if test="flightEndTime != null">flight_end_time = #{flightEndTime},</if>
+
+        </set>
+        where flight_id = #{flightId} and flight_number = #{flightNumber}
+    </update>
+    <select id="getFlightMessage" resultType="com.sky.vo.FlightVO">
+        select * from flight
+        <where>
+            <if test="flightStartPlace != null">
+                and flight_start_place = #{flightStartPlace}
+            </if>
+            <if test="flightEndPlace != null">
+                and flight_end_place = #{flightEndPlace}
+            </if>
+            <if test="flightStartTime != null">
+                and flight_start_time = #{flightStartTime}
+            </if>
+            <if test="flightStartAirport != null">
+                and flight_start_airport = #{flightStartAirport}
+            </if>
+            <if test="flightEndAirport != null">
+                and flight_end_airport = #{flightEndAirport}
+            </if>
+        </where>
+
+    </select>
+    <select id="getFlightMessage1" resultType="com.sky.entity.Flight">
+        select * from flight
+        <where>
+            <if test="flightStartPlace != null">
+                and flight_start_place = #{flightStartPlace}
+            </if>
+            <if test="flightEndPlace != null">
+                and flight_end_place = #{flightEndPlace}
+            </if>
+            <if test="flightStartTime != null">
+                and flight_start_time = #{flightStartTime}
+            </if>
+            <if test="flightStartAirport != null">
+                and flight_start_airport = #{flightStartAirport}
+            </if>
+            <if test="flightEndAirport != null">
+                and flight_end_airport = #{flightEndAirport}
+            </if>
+        </where>
+    </select>
+    <select id="getFlightByFlightNumber" resultType="com.sky.vo.FlightVO">
+        select * from flight
+        <where>
+            <if test="flightNumber != null">
+                and flight_number = #{flightNumber}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
