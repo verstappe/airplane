@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.FlightOrderMapper">
+    <insert id="insertTicketOrder">
+       insert into flight_order (order_name, order_user, flight_number, person_name, order_date, grade, person_id, contact_name,
+                          contact_phone, order_money,flight_id)
+        values (#{orderName}, #{orderUser}, #{flightNumber}, #{personName}, #{orderDate}, #{grade}, #{personId}, #{contactName},
+            #{contactPhone}, #{orderMoney},#{flightId})
+    </insert>
+    <update id="updateOrderMessage">
+        update flight_order
+        <set>
+            <if test="flightId != null">flight_id = #{flightId},</if>
+            <if test="flightNumber != null">flight_number = #{flightNumber},</if>
+            <if test="orderMoney != null">order_money = #{orderMoney},</if>
+            <if test="orderDate != null">order_date = #{orderDate}</if>
+        </set>
+        where order_id = #{orderId}
+    </update>
+
+
+    <delete id="deleteOrderByIds">
+        delete from flight_order where order_id in
+        <foreach collection="orderIds" item="ids" open="(" close=")" separator=",">
+            #{ids}
+        </foreach>
+    </delete>
+    <delete id="deleteOrder">
+        delete from flight_order where order_id = #{orderId}
+    </delete>
+    <select id="getOrderByPage" resultType="com.sky.vo.FlightOrderVO">
+        select * from flight_order
+        <where>
+            <if test="flightNumber != null">
+                and flight_number = #{flightNumber}
+            </if>
+            <if test="orderDate != null">
+                and order_date = #{orderDate}
+            </if>
+            <if test="orderUser != null">
+                and order_user = #{orderUser}
+            </if>
+        </where>
+        order by order_id desc
+    </select>
+    <select id="getFlightMessage" resultType="com.sky.vo.FlightTouristSubmitOrderVO">
+        select flight_high_number,flight_middle_number,flight_base_number from flight
+        <where>
+            <if test="flightStartPlace != null">
+                and flight_start_place = #{flightStartPlace}
+            </if>
+            <if test="flightEndPlace != null">
+                and flight_end_place = #{flightEndPlace}
+            </if>
+            <if test="flightStartTime != null">
+                and flight_start_time = #{flightStartTime}
+            </if>
+            <if test="flightEndTime != null">
+                and flight_end_time = #{flightEndTime}
+            </if>
+            <if test="flightStartAirport != null">
+                and flight_start_airport = #{flightStartAirport}
+            </if>
+            <if test="flightEndAirport != null">
+                and flight_end_airport = #{flightEndAirport}
+            </if>
+        </where>
+        order by flight_id desc
+    </select>
+
+
+
+</mapper>
