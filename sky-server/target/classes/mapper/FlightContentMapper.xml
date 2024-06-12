@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.FlightContentMapper">
+
+
+    <insert id="save">
+        insert into content (content_id,content_describe,content_url,content_picture_url)
+        values(#{contentId},#{contentDescribe},#{contentUrl},#{contentPictureUrl})
+    </insert>
+    <select id="getContent" resultType="com.sky.vo.FlightContentVO">
+        select * from content
+        <where>
+            <if test="contentDescribe != null">
+                and content_describe like concat('%',#{contentDescribe},'%')
+            </if>
+        <if test="contentUrl != null">
+                and content_url like concat('%',#{contentUrl},'%')
+        </if>
+            <if test="contentPictureUrl != null">
+                and content_picture_url like concat('%',#{contentPictureUrl},'%')
+            </if>
+        </where>
+        order by content_id desc
+    </select>
+</mapper>
