@@ -21,7 +21,4 @@ public interface FlightBuyLuggageMapper {
     @Select("select * from luggage where luggage_id = #{luggageId};")
     FlightLuggage getLuggage(Integer luggageId);
 
-    /**
-     * 根据乘客的身份信息查询
-     */
 }

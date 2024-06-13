@@ -23,6 +23,11 @@ public class FlightContentServiceImpl implements FlightContentService {
 
     @Autowired
     private FlightContentMapper flightContentMapper;
+
+    /**
+     * 添加广告
+     * @param flightContentDTO
+     */
     @Override
     public void save(FlightContentDTO flightContentDTO) {
         if(flightContentDTO.getContentUrl()==null&&flightContentDTO.getContentPictureUrl()==null){

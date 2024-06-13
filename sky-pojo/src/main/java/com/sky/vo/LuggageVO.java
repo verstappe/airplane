@@ -15,6 +15,5 @@ public class LuggageVO implements Serializable {
     private Integer luggageId;
     private String statue;
     private String location;
-    private Integer touristId;
     private Integer flightId;
 }

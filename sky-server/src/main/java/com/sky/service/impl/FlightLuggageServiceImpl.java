@@ -4,9 +4,11 @@ package com.sky.service.impl;
 import com.sky.constant.MessageConstant;
 import com.sky.dto.FlightmakeLuggageDTO;
 import com.sky.dto.LuggageDTO;
+import com.sky.dto.LuggageGetDTO;
 import com.sky.entity.FlightLuggage;
 import com.sky.exception.FlightLuggageException;
 import com.sky.mapper.FlightLuggageMapper;
+import com.sky.mapper.FlightManageMapper;
 import com.sky.mapper.FlightOrderMapper;
 import com.sky.mapper.FlightUserAndPwdMapper;
 import com.sky.service.FlightLuggageService;
@@ -23,6 +25,8 @@ public class FlightLuggageServiceImpl  implements FlightLuggageService {
    private FlightLuggageMapper flightLuggageMapper;
    @Autowired
    private FlightOrderMapper flightOrderMapper;
+   @Autowired
+   private FlightManageMapper flightManageMapper;
     @Autowired
     private FlightUserAndPwdMapper flightUserAndPwdMapper;
     /**
@@ -31,8 +35,24 @@ public class FlightLuggageServiceImpl  implements FlightLuggageService {
      * @return
      */
     @Override
-    public List<LuggageVO> showLuggage(LuggageDTO luggageDTO) {
-            List<LuggageVO> list = flightLuggageMapper.showLuggage(luggageDTO);
+    public List<LuggageVO> showLuggage(LuggageGetDTO luggageDTO) {
+        //判断身份证号码应为11位
+        if (luggageDTO.getPersonId().length() != 18){
+            throw new FlightLuggageException("身份证号码应为18位");
+        }
+        //判断该身份证号是否存在
+        if (flightOrderMapper.getOrderByPersonId(luggageDTO.getPersonId()) == null){
+            throw new FlightLuggageException("该身份证号不存在");
+        }
+        //判断航班是否存在
+        if(flightManageMapper.getFlight(luggageDTO.getFlightId()) == null){
+            throw new FlightLuggageException("该航班不存在");
+        }
+        List<LuggageVO> list = flightLuggageMapper.showLuggage(luggageDTO);
+         //判断行李是否存在
+          if( list.isEmpty()){
+              throw new FlightLuggageException("该行李ID不存在");
+          }
         return list;
     }
     /**
@@ -42,7 +62,12 @@ public class FlightLuggageServiceImpl  implements FlightLuggageService {
      */
     @Override
     public List<LuggageVO> getLuggageById( Integer luggageId) {
+
         List<LuggageVO> list = flightLuggageMapper.getLuggageById(luggageId);
+
+        if (list.isEmpty()){
+            throw new FlightLuggageException("该行李ID不存在");
+        }
         return list;
     }
 
@@ -50,7 +75,7 @@ public class FlightLuggageServiceImpl  implements FlightLuggageService {
      * 删除行李
      */
     public void deleteLuggage(  Integer luggageId){
-        LuggageDTO luggageDTO = new LuggageDTO();
+        LuggageGetDTO luggageDTO = new LuggageGetDTO();
         luggageDTO.setLuggageId(luggageId);
         List<LuggageVO> list = flightLuggageMapper.showLuggage(luggageDTO);
         if(list.get(0).getStatue() == "已登机" || list.get(0).getLocation().contains("登机口")) {

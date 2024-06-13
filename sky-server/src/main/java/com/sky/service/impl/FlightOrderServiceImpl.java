@@ -48,14 +48,23 @@ public class FlightOrderServiceImpl implements FlightOrderService {
      */
     @Override
     public FlightOrderVO getOrderById(Integer orderId) {
-        return flightOrderMapper.getOrderById(orderId);
+        FlightOrderVO orderByIdVO = flightOrderMapper.getOrderById(orderId);
+        if(  orderByIdVO == null){
+           throw new FlightTicketException("订单不存在");
+       }
+       return orderByIdVO;
     }
 
     /**
      * 根据id删除订单信息
      */
     public void deleteOrderById(Integer orderId){
+        FlightOrderVO orderByPersonId = flightOrderMapper.getOrderById(orderId);
+        if (orderByPersonId == null){
+            throw new FlightTicketException("订单ID填写错误，该订单不存在");
+        }
         flightOrderMapper.deleteOrderById(orderId);
+
     }
 
     /**
@@ -64,6 +73,14 @@ public class FlightOrderServiceImpl implements FlightOrderService {
      */
     @Override
     public void deleteOrderByIds(List<Integer> orderIds) {
+        FlightOrderVO orderByPersonId = new FlightOrderVO();
+        for (Integer id : orderIds) {
+           orderByPersonId = flightOrderMapper.getOrderById(id);
+           if (orderByPersonId == null){
+               throw new FlightTicketException("订单列表中有ID不正确的");
+           }
+           orderByPersonId = null;
+        }
         flightOrderMapper.deleteOrderByIds(orderIds);
     }
 
@@ -77,9 +94,30 @@ public class FlightOrderServiceImpl implements FlightOrderService {
     public PageResult getOrderByPage(FlightOrderDTO flightOrderDTO) {
 
         PageHelper.startPage(flightOrderDTO.getPageNum(),flightOrderDTO.getPageSize());
-        Page<FlightOrderVO> page = flightOrderMapper.getOrderByPage(flightOrderDTO);
-
-        return new PageResult(page.getTotal(), page.getResult());
+        Page<FlightOrderVO> page1 = new Page<>();
+        //根据订单的日期来进行选择
+        if (flightOrderDTO.getOrderDate() != null) {
+            Page<FlightOrderVO> orderByOrderDate = flightOrderMapper.getOrderByOrderDate(flightOrderDTO.getOrderDate());
+            Page<FlightOrderVO> page = orderByOrderDate;
+            page1 = page;
+        } else if (flightOrderDTO.getOrderId() != null) {
+            FlightOrderVO orderId = flightOrderMapper.getOrderById(flightOrderDTO.getOrderId());
+            Page<FlightOrderVO> page = new Page<>();
+            page.add(orderId);
+            page1 = page;
+        } else if (flightOrderDTO.getFlightNumber() != null) {
+            Page<FlightOrderVO> page = flightOrderMapper.getOrderByPage(flightOrderDTO);
+            page1 = page;
+        }else if(flightOrderDTO.getOrderUser() != null){
+            Page<FlightOrderVO> page = flightOrderMapper.getOrderByPage(flightOrderDTO);
+            page1 = page;
+        }else {
+            Page<FlightOrderVO> page = new Page<>();
+            page.setTotal(0);
+            page1 = page;
+        }
+        // Page<FlightOrderVO> page = flightOrderMapper.getOrderByPage(flightOrderDTO);
+        return new PageResult(page1.getTotal(), page1.getResult());
 
     }
 

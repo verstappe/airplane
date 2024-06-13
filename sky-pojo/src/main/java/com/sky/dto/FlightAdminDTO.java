@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class FlightAdminDTO {
-    private int pageNum;
-    private int pageSize;
-    private int userId;
+    private Integer pageNum;
+    private Integer pageSize;
+    private Integer userId;
     private String userName;
     private String userPwd;
 }

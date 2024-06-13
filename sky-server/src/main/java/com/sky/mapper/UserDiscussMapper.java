@@ -27,4 +27,10 @@ public interface UserDiscussMapper {
      * @param flightDiscuss
      */
     void updateDiscussById(FlightDiscuss flightDiscuss);
+
+    /**
+     * 查询评论信息
+     * @param id
+     */
+    FlightDiscuss selectDiscuss(Integer id);
 }

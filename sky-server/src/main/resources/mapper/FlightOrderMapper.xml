@@ -40,6 +40,9 @@
             <if test="orderUser != null">
                 and order_user = #{orderUser}
             </if>
+            <if test="orderId != null">
+                and order_id = #{orderId}
+            </if>
         </where>
         order by order_id desc
     </select>
@@ -67,7 +70,16 @@
         </where>
         order by flight_id desc
     </select>
+    <select id="getOrderByOrderDate" resultType="com.sky.vo.FlightOrderVO">
+        select * from flight_order
+        <where>
+            <if test="orderDate != null">
+                and order_date  &gt;= #{orderDate}
+            </if>
 
+        </where>
+        order by flight_id desc
+    </select>
 
 
 </mapper>

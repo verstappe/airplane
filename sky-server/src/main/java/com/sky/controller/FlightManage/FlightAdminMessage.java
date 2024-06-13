@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/manage/flightAdminMessage")
+@RequestMapping("/manage3/flightAdminMessage")
 @Api(tags = "管理者")
 public class FlightAdminMessage {
     @Autowired

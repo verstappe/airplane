@@ -25,4 +25,14 @@
         </set>
         where user_name = #{userName} and flight_number = #{flightNumber} and id = #{id}
     </update>
+    <select id="selectDiscuss" resultType="com.sky.entity.FlightDiscuss">
+        select * from discuss
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+
+        </where>
+    </select>
+
 </mapper>

@@ -8,7 +8,7 @@ import com.sky.entity.FlightLuggage;
 public interface FlightBuyLuggageService {
     /**
      * 购买行李
-     * @param luggageDTO
+     * @param flightUserMakeLuggageDTO
      */
     void buyLuggage(FlightUserMakeLuggageDTO flightUserMakeLuggageDTO);
 

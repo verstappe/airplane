@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/tourist/flightMessage")
+@RequestMapping("/tourist3/flightMessage")
 @Api(tags = "航班信息")
 public class UserSearchFlightController {
     @Autowired
@@ -31,7 +31,7 @@ public class UserSearchFlightController {
     /**
      * 航班信息查询(起飞时间 或 起飞地点 或 到达地点)
      */
-    @GetMapping("/searchFlightMessage")
+    @GetMapping("/searchFlightMessage1")
     @ApiOperation("航班信息查询")
     public Result<PageResult> searchFlightMessage(@RequestBody UserSearchFlightPageQueryDTO userSearchFlightPageQueryDTO){
         PageResult pageResult = userSearchFlightService.getFlightMessage(userSearchFlightPageQueryDTO);

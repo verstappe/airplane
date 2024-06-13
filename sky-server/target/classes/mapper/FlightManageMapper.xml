@@ -5,9 +5,9 @@
 
     <insert id="addFlight">
         insert into flight (flight_id, flight_number, flight_start_place,flight_end_place, flight_start_airport, flight_end_airport, flight_start_time, flight_end_time, flight_high_price,
-                          flight_high_number, flight_middle_price,flight_middle_number,flight_base_price,flight_base_number)
+                          flight_high_number, flight_middle_price,flight_middle_number,flight_base_price,flight_base_number,flight_line_sort)
         values (#{flightId}, #{flightNumber}, #{flightStartPlace},#{flightEndPlace}, #{flightStartAirport}, #{flightEndAirport}, #{flightStartTime}, #{flightEndTime}, #{flightHighPrice},
-            #{flightHighNumber}, #{flightMiddlePrice},#{flightMiddleNumber},#{flightBasePrice},#{flightBaseNumber})
+            #{flightHighNumber}, #{flightMiddlePrice},#{flightMiddleNumber},#{flightBasePrice},#{flightBaseNumber},#{flightLineSort})
     </insert>
     <update id="updateFlight" parameterType="Flight">
 
@@ -26,6 +26,7 @@
                 <if test="flightMiddleNumber != null">flight_middle_number = #{flightMiddleNumber},</if>
                 <if test="flightBasePrice != null">flight_base_price = #{flightBasePrice},</if>
                 <if test="flightBaseNumber != null">flight_base_number = #{flightBaseNumber},</if>
+
             </set>
             where flight_id = #{flightId}
 

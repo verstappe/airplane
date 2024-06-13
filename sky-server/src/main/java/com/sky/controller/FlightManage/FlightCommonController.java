@@ -33,7 +33,7 @@ public class FlightCommonController {
      * @return
      */
     @PostMapping("/upload")
-    @ApiOperation("文件上传")
+ @   ApiOperation("文件上传")
     public Result<String> upload(MultipartFile file){
         log.info("文件上传：{}",file);
 

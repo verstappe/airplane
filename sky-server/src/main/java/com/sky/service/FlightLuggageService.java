@@ -2,6 +2,7 @@ package com.sky.service;
 
 import com.sky.dto.FlightmakeLuggageDTO;
 import com.sky.dto.LuggageDTO;
+import com.sky.dto.LuggageGetDTO;
 import com.sky.vo.LuggageVO;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface FlightLuggageService {
      * @param luggageDTO
      * @return
      */
-    List<LuggageVO> showLuggage(LuggageDTO luggageDTO);
+    List<LuggageVO> showLuggage(LuggageGetDTO luggageDTO);
     /**
      * 根据行李ID查看行李
      * @param luggageId

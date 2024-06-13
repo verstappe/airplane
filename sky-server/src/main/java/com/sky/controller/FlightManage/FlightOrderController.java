@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/manage/flightOrder")
+@RequestMapping("/manage4/flightOrder")
 @Api(tags = "订单信息管理")
 public class FlightOrderController {
     @Autowired
@@ -47,7 +47,7 @@ public class FlightOrderController {
      * 根据id批量删除订单
      *
      */
-    @DeleteMapping
+    @DeleteMapping("/deleteids")
     @ApiOperation("根据id批量删除订单")
     public Result deleteOrderById(@RequestParam List<Integer> orderIds){
         flightOrderService.deleteOrderByIds(orderIds);
@@ -65,9 +65,5 @@ public class FlightOrderController {
         PageResult pageResult = flightOrderService.getOrderByPage(flightOrderDTO);
         return Result.success(pageResult);
     }
-
-
-
-
 
 }

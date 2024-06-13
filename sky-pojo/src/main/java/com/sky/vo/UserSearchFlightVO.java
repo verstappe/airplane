@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -16,21 +17,21 @@ import java.util.Date;
 @AllArgsConstructor
 
 public class UserSearchFlightVO implements Serializable {
-    private int flightId;
+    private Integer flightId;
     private String flightNumber;
     private String flightStartPlace;
     private String flightEndPlace;
     private String flightStartAirport;
     private String flightEndAirport;
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date flightStartTime;
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date flightEndTime;
-    private double flightHighPrice;
-    private int flightHighNumber;
-    private double flightMiddlePrice;
-    private int flightMiddleNumber;
-    private double flightBasePrice;
-    private int flightBaseNumber;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime flightStartTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime flightEndTime;
+    private Double flightHighPrice;
+    private Integer flightHighNumber;
+    private Double flightMiddlePrice;
+    private Integer flightMiddleNumber;
+    private Double flightBasePrice;
+    private Integer flightBaseNumber;
     private String flightLineSort;
 }

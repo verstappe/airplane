@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 public class FlightFlyTimeDTO implements Serializable {
     private Integer flightId;
     private String flightNumber;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime flightStartTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

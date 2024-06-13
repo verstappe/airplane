@@ -7,13 +7,13 @@
         <where>
 
             <if test="flightStartTime != null">
-                flight_start_time = #{flightStartTime}
+                and flight_start_time = #{flightStartTime}
             </if>
             <if test="flightStartPlace != null">
-                flight_start_place = #{flightStartPlace}
+               and flight_start_place = #{flightStartPlace}
             </if>
             <if test="flightEndPlace != null">
-                flight_end_place = #{flightEndPlace}
+             and    flight_end_place = #{flightEndPlace}
             </if>
 
         </where>

@@ -2,6 +2,7 @@ package com.sky.controller.FlightManage;
 
 import com.sky.dto.FlightmakeLuggageDTO;
 import com.sky.dto.LuggageDTO;
+import com.sky.dto.LuggageGetDTO;
 import com.sky.result.Result;
 import com.sky.service.FlightLuggageService;
 import com.sky.vo.LuggageVO;
@@ -23,7 +24,7 @@ public class FlightManageLuggageController {
      */
     @GetMapping("/list")
     @ApiOperation("查看行李")
-    public Result<List<LuggageVO>> list(@RequestBody LuggageDTO luggageDTO ){
+    public Result<List<LuggageVO>> list(@RequestBody LuggageGetDTO luggageDTO ){
         List<LuggageVO> list = flightLuggageService.showLuggage(luggageDTO);
         return Result.success(list);
     }

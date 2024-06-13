@@ -27,12 +27,10 @@
                 <if test="flightId != null">
                     and flight_id = #{flightId}
                 </if>
-                <if test="touristId != null">
-                    and tourist_id = #{touristId}
-                </if>
+
 
             </where>
-            order by tourist_id desc
+
         </select>
 
 

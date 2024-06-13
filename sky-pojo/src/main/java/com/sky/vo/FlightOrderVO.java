@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -19,7 +20,7 @@ public class FlightOrderVO implements Serializable {
     private String orderUser;
     private String flightNumber;
     private String personName;
-    private Date orderDate;
+    private LocalDateTime orderDate;
     private String grade;
     private String personId;
     private String contactName;

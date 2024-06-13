@@ -81,4 +81,10 @@ public interface FlightOrderMapper {
 
     @AutoFill(value = OperationType.INSERT)
     void insertTicketOrder(FlightOrder flightOrder);
+
+    /**
+     * 根据订单的日期来进行查找
+     * @param orderDate
+     */
+    Page<FlightOrderVO> getOrderByOrderDate(String orderDate);
 }

@@ -3,7 +3,9 @@ package com.sky.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.dto.FlightDiscussDTO;
+import com.sky.exception.FlightException;
 import com.sky.mapper.FlightDiscussMapper;
+import com.sky.mapper.UserDiscussMapper;
 import com.sky.result.PageResult;
 import com.sky.service.FlightDiscussService;
 import com.sky.service.FlightOrderService;
@@ -15,14 +17,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @author 林先生
- * @version 1.0
- */
 @Service
 public class FlightDiscussServiceImpl implements FlightDiscussService {
     @Autowired
     private FlightDiscussMapper flightDiscussMapper;
+    @Autowired
+    private UserDiscussMapper userDiscussMapper;
     /**
      * 删除评论
      * @param ids
@@ -30,6 +30,9 @@ public class FlightDiscussServiceImpl implements FlightDiscussService {
     @Override
     public void deleteUserDiscussByIds(List<Integer> ids) {
         for(Integer id : ids){
+            if (userDiscussMapper.selectDiscuss(id) == null){
+                throw new FlightException("评论ID不存在");
+            }
             flightDiscussMapper.deleteUserDidcussById(id);
         }
     }

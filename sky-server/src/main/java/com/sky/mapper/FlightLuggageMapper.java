@@ -1,6 +1,7 @@
 package com.sky.mapper;
 
 import com.sky.dto.LuggageDTO;
+import com.sky.dto.LuggageGetDTO;
 import com.sky.entity.FlightLuggage;
 import com.sky.vo.LuggageVO;
 import org.apache.ibatis.annotations.Delete;
@@ -16,7 +17,7 @@ public interface FlightLuggageMapper {
      * @param luggage
      * @return
      */
-    List<LuggageVO> showLuggage(LuggageDTO luggage);
+    List<LuggageVO> showLuggage(LuggageGetDTO luggage);
 
     /**
      * 删除行李
